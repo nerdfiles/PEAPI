@@ -53,16 +53,18 @@ class Guide
     # mapping id of cli inputs to public methods of Guide
     K = _.filter _.map @config, (o, k) -> k  if o is true # Method
 
-    __callback__ = (doc, e) ->
-      return  if /failed/.test(e) is true
+    __callback__ = (doc, state) ->
+      return  if /failed/.test(state) is true
+      __doc__ = if doc and doc.body then (JSON.parse doc.body).reason.rainbow else 'task completed'.gray
+      console.log __doc__
 
-      P = JSON.parse doc.body
+    if not _.isEmpty(F)
+      methods = _.map K, (methodName) => () => @[methodName](F, __callback__)
+    else
+      methods = _.map K, (methodName) => () => @[methodName](__callback__)
 
-      console.log P.reason.rainbow
-
-    methods = _.map K, (methodName) => () => @[methodName](F, __callback__)
-
-    async.series methods
+    async.series methods, () ->
+      console.log K.join('').rainbow + ' completed'
 
     d.promise
 
@@ -108,6 +110,16 @@ class Guide
       () ->
         callback null, 'register failed'
     )
+
+  setup: (callback) =>
+
+    ###
+    @method setup
+    ###
+
+    callback null, 'setup finished'
+    return
+
 
   status: (filename, callback) =>
 

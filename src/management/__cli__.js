@@ -14,6 +14,7 @@
     Usage:
       index register <file>
       index status <file>
+      index setup
       index -h | --help
       index --version
      */

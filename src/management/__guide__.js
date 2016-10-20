@@ -52,6 +52,7 @@
       var F, K, __callback__, d, methods;
       this.cli = cli;
       this.status = bind(this.status, this);
+      this.setup = bind(this.setup, this);
       this.register = bind(this.register, this);
       if (!enabled) {
         return console.log('Guide: Disabled');
@@ -74,22 +75,34 @@
           return k;
         }
       }));
-      __callback__ = function(doc, e) {
-        var P;
-        if (/failed/.test(e) === true) {
+      __callback__ = function(doc, state) {
+        var __doc__;
+        if (/failed/.test(state) === true) {
           return;
         }
-        P = JSON.parse(doc.body);
-        return console.log(P.reason.rainbow);
+        __doc__ = doc && doc.body ? (JSON.parse(doc.body)).reason.rainbow : 'task completed'.gray;
+        return console.log(__doc__);
       };
-      methods = _.map(K, (function(_this) {
-        return function(methodName) {
-          return function() {
-            return _this[methodName](F, __callback__);
+      if (!_.isEmpty(F)) {
+        methods = _.map(K, (function(_this) {
+          return function(methodName) {
+            return function() {
+              return _this[methodName](F, __callback__);
+            };
           };
-        };
-      })(this));
-      async.series(methods);
+        })(this));
+      } else {
+        methods = _.map(K, (function(_this) {
+          return function(methodName) {
+            return function() {
+              return _this[methodName](__callback__);
+            };
+          };
+        })(this));
+      }
+      async.series(methods, function() {
+        return console.log(K.join('').rainbow + ' completed');
+      });
       d.promise;
     }
 
@@ -131,6 +144,14 @@
       }, function() {
         return callback(null, 'register failed');
       });
+    };
+
+    Guide.prototype.setup = function(callback) {
+
+      /*
+      @method setup
+       */
+      callback(null, 'setup finished');
     };
 
     Guide.prototype.status = function(filename, callback) {

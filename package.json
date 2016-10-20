@@ -23,7 +23,8 @@
     "watch": "watchcompile -f Watchfile -s",
     "reg": "node index.js register",
     "status": "node index.js status",
-    "s": "npm run status"
+    "s": "npm run status",
+    "postInstall": "node index.js setup"
   },
   "author": "nerdfiles",
   "license": "WTFPL",
