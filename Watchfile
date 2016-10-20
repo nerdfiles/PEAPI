@@ -1,0 +1,15 @@
+//{basename} /css/style.scss => style.scss
+//{fullpath} /css/style.scss => /css/style.scss (unchanged)
+//{filename} /css/style.scss => style
+//{extname}  /css/style.scss => .scss
+//{directory} /css/style.scss => /css/
+exports.watchList = [
+  [
+    /^.*coffee$/,
+    "coffee -c {fullpath}"
+  ],
+  [
+    /^.*scss$/,
+    "scss -c {fullpath} > {directory}{basename}.css"
+  ]
+];
