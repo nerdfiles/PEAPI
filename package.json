@@ -21,7 +21,9 @@
     "app.provision.install.watchfile": "sudo npm install -g watch-compile",
     "install.watchfile": "npm run app.provision.install.watchfile",
     "watch": "watchcompile -f Watchfile -s",
-    "reg": "node index.js"
+    "reg": "node index.js register",
+    "status": "node index.js status",
+    "s": "npm run status"
   },
   "author": "nerdfiles",
   "license": "WTFPL",
