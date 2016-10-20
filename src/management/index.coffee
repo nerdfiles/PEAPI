@@ -6,6 +6,9 @@ enabled = true
 class Management
   constructor: () ->
     d = defer()
+    return (d.reject(enabled) &&
+      console.log('Management: Disabled'))  if !enabled
+
     d.resolve enabled
     # $ node index.js register <some_file>
     cli = new Cli

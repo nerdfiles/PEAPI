@@ -14,6 +14,9 @@
     function Management() {
       var cli, d, guide;
       d = defer();
+      if (!enabled) {
+        return d.reject(enabled) && console.log('Management: Disabled');
+      }
       d.resolve(enabled);
       cli = new Cli;
       guide = new Guide(cli);

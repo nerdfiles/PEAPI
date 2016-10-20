@@ -1,3 +1,11 @@
+###
+@fileOverview ./src/management/qm.coffee
+@description
+Eventually to grace us as a management system for files that have been 
+digested. For now it merely opens a file and passes it along
+to the Guide.
+###
+
 __q__ = require 'promise-defer'
 path = require 'path'
 __fs__ = require 'fs'
