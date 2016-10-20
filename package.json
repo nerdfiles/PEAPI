@@ -1,7 +1,7 @@
 {
-  "name": "proofofexistence",
+  "name": "PE",
   "version": "0.0.1",
-  "description": "This API allows developers to integrate their systems with proofofexistence's functionality. You can access all of the app's features through an HTTP interface.",
+  "description": "Unsolicited Node.js CLI for proofofexistence.com's API functionality. You can access all of the app's features through an HTTP interface.",
   "main": "index.js",
   "scripts": {
     "app.provision.install.babel": "npm install --save-dev babel-cli babel-preset-es2015",
