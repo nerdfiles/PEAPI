@@ -5,6 +5,7 @@ crypto = require('crypto')
 request = require('request')
 QueryManager = require './qm'
 enabled = true
+colors = require('colors')
 
 
 prep_payload = (file) ->
@@ -48,13 +49,20 @@ class Guide
     d.resolve(enabled)  if enabled
 
     @config = @cli.initConfig
-    F = _.filter @config, (o, k) -> o  if _.isString(o)
+    F = _.filter @config, (o, k) -> o  if _.isString(o) # Filename
     # mapping id of cli inputs to public methods of Guide
-    K = _.filter _.map @config, (o, k) -> k  if o is true
-    methods = _.map K, (methodName) => () => @[methodName](F)
+    K = _.filter _.map @config, (o, k) -> k  if o is true # Method
 
-    async.series methods, (error, result) ->
-      console.log result
+    __callback__ = (doc, e) ->
+      return  if /failed/.test(e) is true
+
+      P = JSON.parse doc.body
+
+      console.log P.reason.rainbow
+
+    methods = _.map K, (methodName) => () => @[methodName](F, __callback__)
+
+    async.series methods
 
     d.promise
 
@@ -79,11 +87,10 @@ class Guide
         rejectUnauthorized : false
         qs                 : o
       , (error, response, body) ->
-        console.log response
         if error
           d.reject error
           return
-        d.resolve response.statusCode
+        d.resolve response
         return
 
     d.promise
@@ -95,8 +102,8 @@ class Guide
     ###
 
     @op("register", filename).then(
-      (error, data) ->
-        callback null, 'register finished'
+      (data) ->
+        callback data, 'register finished'
       ,
       () ->
         callback null, 'register failed'
@@ -109,8 +116,8 @@ class Guide
     ###
 
     @op("status", filename).then(
-      (error, data) ->
-        callback null, 'status check finished'
+      (data) ->
+        callback data, 'status check finished'
       ,
       () ->
         callback null, 'status check failed'
