@@ -1,7 +1,6 @@
 {
   "plugins": ["transform-es2015-spread"],
   "ignore": [
-    "foo.js",
-    "bar/**/*.js"
+    "node_modules"
   ]
 }
