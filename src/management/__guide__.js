@@ -94,11 +94,14 @@
         }
       }));
       __callback__ = function(doc, state) {
-        var __doc__;
+        var __doc__, __finalized__, __success__, __view__;
         if (/failed/.test(state) === true) {
           return;
         }
-        __doc__ = doc && doc.body ? (JSON.parse(doc.body)).reason.rainbow : 'task completed'.gray;
+        __view__ = doc && doc.body;
+        __success__ = (JSON.parse(doc.body)).reason.rainbow;
+        __finalized__ = 'task completed'.gray;
+        __doc__ = __view__ ? __success__ : __finalized__;
         return console.log(__doc__);
       };
       if (!_.isEmpty(F)) {

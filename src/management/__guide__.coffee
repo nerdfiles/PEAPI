@@ -25,11 +25,11 @@ prep_setup = () ->
 
   g.promise
 
-prep_payload = (file) ->
+prep_request = (file) ->
 
   ###
   @inner
-  @name prep_payload
+  @name prep_request
   @description
   Encrypt our file after having finally opened it.
   ###
@@ -44,10 +44,10 @@ prep_payload = (file) ->
         .update(file_contents)
         .digest('base64')
 
-      payload =
+      qs =
         d: out
 
-      g.resolve payload
+      g.resolve qs
 
   catch e
     g.reject e
@@ -72,7 +72,10 @@ class Guide
 
     __callback__ = (doc, state) ->
       return  if /failed/.test(state) is true
-      __doc__ = if doc and doc.body then (JSON.parse doc.body).reason.rainbow else 'task completed'.gray
+      __view__ = doc and doc.body
+      __success__ = (JSON.parse doc.body).reason.rainbow
+      __finalized__ = 'task completed'.gray
+      __doc__ = if __view__ then __success__ else __finalized__
       console.log __doc__
 
     if not _.isEmpty(F)
@@ -98,7 +101,7 @@ class Guide
     url = 'https://www.proofofexistence.com/api/v1/'
     method = url + m
 
-    prep_payload(file).then (o) ->
+    prep_request(file).then (o) ->
 
       request
         method             : 'post'
