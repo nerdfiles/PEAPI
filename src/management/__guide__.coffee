@@ -1,20 +1,32 @@
+###
+@fileOverview ./src/management/__guide__.coffee
+@description
+Guide Interface treats a CLI state.
+###
+
 defer = require('promise-defer')
 async = require('async')
 _ = require('lodash')
 crypto = require('crypto')
 request = require('request')
 QueryManager = require './qm'
-enabled = true
 colors = require('colors')
-program = require 'commander'
+#program = require 'commander'
+
+
+# Guide Interface Switch
+enabled = true
+
+
+###
+@jsdoc
+@name prep_setup
+@inner
+@description
+Setup involves escalated rights and probably some statefulness.
+###
 
 prep_setup = () ->
-
-  ###
-  @inner
-  @description
-  ###
-
   g = defer()
   qm = new QueryManager
 
@@ -25,15 +37,15 @@ prep_setup = () ->
 
   g.promise
 
+###
+@jsdoc
+@name prep_request
+@inner
+@description
+Encrypt our file after having finally opened it.
+###
+
 prep_request = (file) ->
-
-  ###
-  @inner
-  @name prep_request
-  @description
-  Encrypt our file after having finally opened it.
-  ###
-
   g = defer()
   out = null
   qm = new QueryManager
@@ -54,8 +66,38 @@ prep_request = (file) ->
 
   g.promise
 
+###
+@inner
+@name __reporter__
+@description
+A place to color in the guide book.
+###
+
+__reporter__ = (doc, state) ->
+
+  return  if /failed/.test(state) is true
+  __view__ = doc and doc.body
+  __success__ = (JSON.parse __view__).reason.rainbow
+  __finalized__ = 'task completed'.gray
+  __doc__ = if __view__ then __success__ else __finalized__
+  console.log __doc__
+
+
+###
+@name Guide
+@class
+@description
+First guide book for PEAPI.
+###
 
 class Guide
+
+  ###
+  @name constructor
+  @description
+  Guide book constructor.
+  @param cli {object} a Dict containing an input state from the user.
+  ###
 
   constructor: (@cli) ->
 
@@ -70,20 +112,6 @@ class Guide
     # mapping id of cli inputs to public methods of Guide
     K = _.filter _.map @config, (o, k) -> k  if o is true # Method
 
-    ###
-    @inner
-    @name __reporter__
-    ###
-
-    __reporter__ = (doc, state) ->
-
-      return  if /failed/.test(state) is true
-      __view__ = doc and doc.body
-      __success__ = (JSON.parse __view__).reason.rainbow
-      __finalized__ = 'task completed'.gray
-      __doc__ = if __view__ then __success__ else __finalized__
-      console.log __doc__
-
     __file_mapper__ = _.map K, (methodName) => () => @[methodName] F, __reporter__
     __stub__ = _.map K, (methodName) => () => @[methodName] __reporter__
 
@@ -97,14 +125,13 @@ class Guide
 
     d.promise
 
+  ###
+  @method op
+  @description
+  API to proofofexistence.com.
+  ###
+
   op: (m, file) ->
-
-    ###
-    @method op
-    @description
-    API to proofofexistence.com.
-    ###
-
 
     d = defer()
     url = 'https://www.proofofexistence.com/api/v1/'
@@ -126,16 +153,19 @@ class Guide
 
     d.promise
 
-  register: (filename, callback) =>
+  ###
+  @method register
+  @cite https://proofofexistence.com/developers: used to register a new
+  document's SHA256 digest. Returns a payment address where you need to send
+  the bitcoins to have the document certified in the blockchain, and the
+  amount of bitcoins you need to send expressed in satoshis
+  (100000000 satoshis = 1 BTC).
+  @param filename {string} a file from the local system to be computed for its
+  SHA256 checksum digest and then registered to return a BTC address for payment.
+  @param callback {function} a callback function
+  ###
 
-    ###
-    @method register
-    @cite https://proofofexistence.com/developers: used to register a new
-    document's SHA256 digest. Returns a payment address where you need to send
-    the bitcoins to have the document certified in the blockchain, and the
-    amount of bitcoins you need to send expressed in satoshis
-    (100000000 satoshis = 1 BTC).
-    ###
+  register: (filename, callback) =>
 
     @op("register", filename).then(
       (data) ->
@@ -145,6 +175,10 @@ class Guide
         callback null, 'register failed'
     )
 
+  ###
+  @method setup
+  @param callback {function} a callback function
+  ###
 
   setup: (callback) =>
 
@@ -175,5 +209,6 @@ class Guide
       () ->
         callback null, 'status check failed'
     )
+
 
 module.exports = Guide
