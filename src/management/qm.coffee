@@ -7,14 +7,14 @@ to the Guide.
 ###
 
 __q__ = require 'promise-defer'
-path = require 'path'
+__path__ = require 'path'
 __fs__ = require 'fs'
 $env = process.env
 
 open_file = (file) ->
   sep = '/'
   r = __q__()
-  app_vantage = path.resolve $env.PWD
+  app_vantage = __path__.resolve $env.PWD
   __fs__.readFile app_vantage + sep + file, 'utf-8', (error, data) ->
     return console.log error  if error
     r.resolve data

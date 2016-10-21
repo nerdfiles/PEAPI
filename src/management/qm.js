@@ -9,11 +9,11 @@ to the Guide.
  */
 
 (function() {
-  var $env, QueryManager, __fs__, __q__, open_file, path;
+  var $env, QueryManager, __fs__, __path__, __q__, open_file;
 
   __q__ = require('promise-defer');
 
-  path = require('path');
+  __path__ = require('path');
 
   __fs__ = require('fs');
 
@@ -23,7 +23,7 @@ to the Guide.
     var app_vantage, r, sep;
     sep = '/';
     r = __q__();
-    app_vantage = path.resolve($env.PWD);
+    app_vantage = __path__.resolve($env.PWD);
     __fs__.readFile(app_vantage + sep + file, 'utf-8', function(error, data) {
       if (error) {
         return console.log(error);
