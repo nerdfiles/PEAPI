@@ -67,7 +67,7 @@
 
   Guide = (function() {
     function Guide(cli) {
-      var F, K, __mapper__, __reporter__, d, methods;
+      var F, K, __file_mapper__, __reporter__, __stub__, d, methods;
       this.cli = cli;
       this.status = bind(this.status, this);
       this.setup = bind(this.setup, this);
@@ -93,28 +93,40 @@
           return k;
         }
       }));
+
+      /*
+      @inner
+      @name __reporter__
+       */
       __reporter__ = function(doc, state) {
         var __doc__, __finalized__, __success__, __view__;
         if (/failed/.test(state) === true) {
           return;
         }
         __view__ = doc && doc.body;
-        __success__ = (JSON.parse(doc.body)).reason.rainbow;
+        __success__ = (JSON.parse(__view__)).reason.rainbow;
         __finalized__ = 'task completed'.gray;
         __doc__ = __view__ ? __success__ : __finalized__;
         return console.log(__doc__);
       };
-      __mapper__ = _.map(K, (function(_this) {
+      __file_mapper__ = _.map(K, (function(_this) {
         return function(methodName) {
           return function() {
-            return _this[methodName];
+            return _this[methodName](F, __reporter__);
+          };
+        };
+      })(this));
+      __stub__ = _.map(K, (function(_this) {
+        return function(methodName) {
+          return function() {
+            return _this[methodName](__reporter__);
           };
         };
       })(this));
       if (!_.isEmpty(F)) {
-        methods = __mapper__(F, __reporter__);
+        methods = __file_mapper__;
       } else {
-        methods = __mapper__(__reporter__);
+        methods = __stub__;
       }
       async.series(methods, function() {
         return console.log(K.join('').rainbow + ' completed');

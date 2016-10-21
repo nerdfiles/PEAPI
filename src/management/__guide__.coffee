@@ -70,20 +70,27 @@ class Guide
     # mapping id of cli inputs to public methods of Guide
     K = _.filter _.map @config, (o, k) -> k  if o is true # Method
 
+    ###
+    @inner
+    @name __reporter__
+    ###
+
     __reporter__ = (doc, state) ->
+
       return  if /failed/.test(state) is true
       __view__ = doc and doc.body
-      __success__ = (JSON.parse doc.body).reason.rainbow
+      __success__ = (JSON.parse __view__).reason.rainbow
       __finalized__ = 'task completed'.gray
       __doc__ = if __view__ then __success__ else __finalized__
       console.log __doc__
 
-    __mapper__ = _.map K, (methodName) => () => @[methodName]
+    __file_mapper__ = _.map K, (methodName) => () => @[methodName] F, __reporter__
+    __stub__ = _.map K, (methodName) => () => @[methodName] __reporter__
 
     if not _.isEmpty(F)
-      methods = __mapper__ F, __reporter__
+      methods = __file_mapper__
     else
-      methods = __mapper__ __reporter__
+      methods = __stub__
 
     async.series methods, () ->
       console.log K.join('').rainbow + ' completed'
