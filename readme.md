@@ -11,6 +11,10 @@ Keep track of your proofofexistence.com records through a simple CLI.
     $ pe logs
 
       (hash) : (date) : (status)
+      (hash) : (date) : (status)
+      (hash) : (date) : (status)
+      ...
+      (< prev) (1) 2 3 4 5 ... (next >)
 
     $ pe check <file>
 
