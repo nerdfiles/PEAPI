@@ -6,7 +6,7 @@ request = require('request')
 QueryManager = require './qm'
 enabled = true
 colors = require('colors')
-
+program = require 'commander'
 
 prep_setup = () ->
 
@@ -19,6 +19,7 @@ prep_setup = () ->
   qm = new QueryManager
 
   g.resolve true
+  # @TODO capture PWD relative to bashrc and add alias for PEAPI
   qm.add_file('~/.bashrc').then (file_contents) ->
     console.log file_contents
 
