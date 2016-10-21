@@ -50,6 +50,12 @@ to the Guide.
    */
 
   QueryManager = (function() {
+
+    /*
+    @name QueryManager:constructor
+    @description
+    Query Manager has no files. :(
+     */
     function QueryManager() {
       this.files = null;
     }

@@ -36,6 +36,12 @@ Implements Query Management. So we store our history of files added, etc.
 
 class QueryManager
 
+  ###
+  @name QueryManager:constructor
+  @description
+  Query Manager has no files. :(
+  ###
+
   constructor: () ->
     @files = null
 
