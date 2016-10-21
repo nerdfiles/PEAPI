@@ -19,6 +19,15 @@ to the Guide.
 
   $env = process.env;
 
+
+  /*
+  @jsdoc
+  @inner
+  @name open_file
+  @description
+  Opens a file.
+   */
+
   open_file = function(file) {
     var app_vantage, r, sep;
     sep = '/';
@@ -32,6 +41,13 @@ to the Guide.
     });
     return r.promise;
   };
+
+
+  /*
+  @jsdoc
+  Implements Query Management. So we store our history of files added, etc.
+  @class
+   */
 
   QueryManager = (function() {
     function QueryManager() {

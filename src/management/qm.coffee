@@ -11,6 +11,14 @@ __path__ = require 'path'
 __fs__ = require 'fs'
 $env = process.env
 
+###
+@jsdoc
+@inner
+@name open_file
+@description
+Opens a file.
+###
+
 open_file = (file) ->
   sep = '/'
   r = __q__()
@@ -19,6 +27,12 @@ open_file = (file) ->
     return console.log error  if error
     r.resolve data
   r.promise
+
+###
+@jsdoc
+Implements Query Management. So we store our history of files added, etc.
+@class
+###
 
 class QueryManager
 
