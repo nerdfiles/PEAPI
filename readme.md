@@ -8,14 +8,14 @@ Keep track of your proofofexistence.com records through a simple CLI.
 
 ## Use
 
-    $ ppi logs
+    $ pe logs
 
       (hash) : (date) : (status)
 
-    $ ppi check <file>
+    $ pe check <file>
 
       (status)
 
-    $ ppi reg <file>
+    $ pe reg <file>
 
       (address)
