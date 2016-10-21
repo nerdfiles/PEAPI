@@ -115,9 +115,9 @@ Guide Interface treats a CLI state.
     function Guide(cli) {
       var F, K, __file_mapper__, __stub__, d, methods;
       this.cli = cli;
-      this.status = bind(this.status, this);
+      this.check = bind(this.check, this);
       this.setup = bind(this.setup, this);
-      this.register = bind(this.register, this);
+      this.reg = bind(this.reg, this);
       if (!enabled) {
         return console.log('Guide: Disabled');
       }
@@ -195,7 +195,7 @@ Guide Interface treats a CLI state.
 
 
     /*
-    @method register
+    @method reg
     @cite https://proofofexistence.com/developers: used to register a new
     document's SHA256 digest. Returns a payment address where you need to send
     the bitcoins to have the document certified in the blockchain, and the
@@ -206,8 +206,8 @@ Guide Interface treats a CLI state.
     @param callback {function} a callback function
      */
 
-    Guide.prototype.register = function(filename, callback) {
-      return this.op("register", filename).then(function(data) {
+    Guide.prototype.reg = function(filename, callback) {
+      return this.op("reg", filename).then(function(data) {
         return callback(data, 'register finished');
       }, function() {
         return callback(null, 'register failed');
@@ -241,8 +241,8 @@ Guide Interface treats a CLI state.
     @param callback {function} a callback function
      */
 
-    Guide.prototype.status = function(filename, callback) {
-      return this.op("status", filename).then(function(data) {
+    Guide.prototype.check = function(filename, callback) {
+      return this.op("check", filename).then(function(data) {
         return callback(data, 'status check finished');
       }, function() {
         return callback(null, 'status check failed');

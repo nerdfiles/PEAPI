@@ -154,7 +154,7 @@ class Guide
     d.promise
 
   ###
-  @method register
+  @method reg
   @cite https://proofofexistence.com/developers: used to register a new
   document's SHA256 digest. Returns a payment address where you need to send
   the bitcoins to have the document certified in the blockchain, and the
@@ -165,9 +165,9 @@ class Guide
   @param callback {function} a callback function
   ###
 
-  register: (filename, callback) =>
+  reg: (filename, callback) =>
 
-    @op("register", filename).then(
+    @op("reg", filename).then(
       (data) ->
         callback data, 'register finished'
       ,
@@ -200,9 +200,9 @@ class Guide
   @param callback {function} a callback function
   ###
 
-  status: (filename, callback) =>
+  check: (filename, callback) =>
 
-    @op("status", filename).then(
+    @op("check", filename).then(
       (data) ->
         callback data, 'status check finished'
       ,
