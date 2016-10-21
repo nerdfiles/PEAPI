@@ -1,4 +1,4 @@
-docopt = require('docopt-js');
+docopt = require('docopt-js')
 
 __parser__ = (f) ->
   f.toString().
@@ -8,9 +8,12 @@ __parser__ = (f) ->
 cli = __parser__(() ->
   ###!
   Usage:
-    index register <file>
-    index status <file>
+    index reg <file>
+    index check <file>
     index setup
+    index logs
+    index wallet config <wallet_address>
+    index pay <payment_address> <amount> <denomination>
     index -h | --help
     index --version
   ###

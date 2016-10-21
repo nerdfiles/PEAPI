@@ -12,9 +12,12 @@
 
     /*!
     Usage:
-      index register <file>
-      index status <file>
+      index reg <file>
+      index check <file>
       index setup
+      index logs
+      index wallet config <wallet_address>
+      index pay <payment_address> <amount> <denomination>
       index -h | --help
       index --version
      */
