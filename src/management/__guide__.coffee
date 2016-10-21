@@ -70,7 +70,7 @@ class Guide
     # mapping id of cli inputs to public methods of Guide
     K = _.filter _.map @config, (o, k) -> k  if o is true # Method
 
-    __callback__ = (doc, state) ->
+    __reporter__ = (doc, state) ->
       return  if /failed/.test(state) is true
       __view__ = doc and doc.body
       __success__ = (JSON.parse doc.body).reason.rainbow
@@ -78,10 +78,12 @@ class Guide
       __doc__ = if __view__ then __success__ else __finalized__
       console.log __doc__
 
+    __mapper__ = _.map K, (methodName) => () => @[methodName]
+
     if not _.isEmpty(F)
-      methods = _.map K, (methodName) => () => @[methodName](F, __callback__)
+      methods = __mapper__ F, __reporter__
     else
-      methods = _.map K, (methodName) => () => @[methodName](__callback__)
+      methods = __mapper__ __reporter__
 
     async.series methods, () ->
       console.log K.join('').rainbow + ' completed'
@@ -121,6 +123,11 @@ class Guide
 
     ###
     @method register
+    @cite https://proofofexistence.com/developers: used to register a new
+    document's SHA256 digest. Returns a payment address where you need to send
+    the bitcoins to have the document certified in the blockchain, and the
+    amount of bitcoins you need to send expressed in satoshis
+    (100000000 satoshis = 1 BTC).
     ###
 
     @op("register", filename).then(
@@ -130,6 +137,7 @@ class Guide
       () ->
         callback null, 'register failed'
     )
+
 
   setup: (callback) =>
 
@@ -141,12 +149,17 @@ class Guide
       callback null, 'setup finished'
     return
 
+  ###
+  @method status
+  @cite https://proofofexistence.com/developers: receives a digest and returns
+  the status of that document. If the status is `pending`, you'll also get the
+  payment address and price to confirm the document in the blockchain.
+  @param filename {string} a file from the local system to be computed for its SHA256
+  checksum digest.
+  @param callback {function} a callback function
+  ###
 
   status: (filename, callback) =>
-
-    ###
-    @method status
-    ###
 
     @op("status", filename).then(
       (data) ->
