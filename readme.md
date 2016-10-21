@@ -4,6 +4,12 @@
 proofofexistence's functionality. You can access all of the app's features 
 through an HTTP interface.</blockquote>
 
+## Install
+
+    $ npm install PE
+
+## Actions
+
 ### Commit
 
 ### Inspect
