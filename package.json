@@ -1,5 +1,5 @@
 {
-  "name": "PE",
+  "name": "peapi",
   "version": "0.0.1",
   "description": "Unsolicited Node.js CLI for proofofexistence.com's API functionality. You can access all of the app's features through an HTTP interface.",
   "main": "index.js",
