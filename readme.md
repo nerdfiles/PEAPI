@@ -40,7 +40,9 @@ Keep track of your proofofexistence.com records through a simple CLI.
 
       [wallet configured to <wallet_address>]
 
-    $ pe pay (payment_address)
+    $ pe pay (payment_address) N satoshis
+
+      [paid from <wallet_address>] : (status)
 
 ## Use Case
 
