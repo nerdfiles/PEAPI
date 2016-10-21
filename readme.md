@@ -1,4 +1,4 @@
-# 🌱 PEAPI
+# PEAPI
 
 <blockquote>This API allows developers to integrate their systems with 
 proofofexistence's functionality. You can access all of the app's features 
