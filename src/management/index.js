@@ -2,6 +2,8 @@
 
 /*
 @fileOverview ./src/management/index.coffee
+@description
+This module has an index, as it should.
  */
 
 (function() {
@@ -20,6 +22,8 @@
   @jsdoc
   Implements Management Interfaces.
   @class
+  @description
+  Management is accompanied by a CLI with a Guide (Interface).
    */
 
   Management = (function() {

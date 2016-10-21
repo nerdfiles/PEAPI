@@ -1,5 +1,7 @@
 ###
 @fileOverview ./src/management/index.coffee
+@description
+This module has an index, as it should.
 ###
 
 defer = require('promise-defer')
@@ -11,6 +13,8 @@ enabled = true
 @jsdoc
 Implements Management Interfaces.
 @class
+@description
+Management is accompanied by a CLI with a Guide (Interface).
 ###
 
 class Management
