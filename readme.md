@@ -4,7 +4,7 @@ Keep track of your proofofexistence.com records through a simple CLI.
 
 ## Install
 
-    $ npm install PE
+    $ (sudo) npm install PE -g
 
 ## Use
 
