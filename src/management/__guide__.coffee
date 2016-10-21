@@ -8,6 +8,22 @@ enabled = true
 colors = require('colors')
 
 
+prep_setup = () ->
+
+  ###
+  @inner
+  @description
+  ###
+
+  g = defer()
+  qm = new QueryManager
+
+  g.resolve true
+  qm.add_file('~/.bashrc').then (file_contents) ->
+    console.log file_contents
+
+  g.promise
+
 prep_payload = (file) ->
 
   ###
@@ -117,7 +133,8 @@ class Guide
     @method setup
     ###
 
-    callback null, 'setup finished'
+    prep_setup().then () ->
+      callback null, 'setup finished'
     return
 
 
