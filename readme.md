@@ -6,13 +6,16 @@ Keep track of your proofofexistence.com records through a simple CLI.
 
     $ npm install PE
 
-## Actions
+## Use
 
-### Commit
+    $ ppi logs
 
-### Inspect
+      (hash) : (date) : (status)
 
-### \_\_register\_\_
+    $ ppi check <file>
 
-### \_\_status\_\_
+      (status)
 
+    $ ppi reg <file>
+
+      (address)
