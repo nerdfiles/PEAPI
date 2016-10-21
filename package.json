@@ -36,7 +36,8 @@
     "lodash": "^4.16.4",
     "promise-defer": "^1.0.0",
     "request": "^2.75.0",
-    "sha256": "^0.2.0"
+    "sha256": "^0.2.0",
+    "vorpal": "^1.11.4"
   },
   "devDependencies": {
     "babel-cli": "^6.16.0",
