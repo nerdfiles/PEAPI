@@ -113,7 +113,7 @@ Guide Interface treats a CLI state.
     @param cli {object} a Dict containing an input state from the user.
      */
     function Guide(cli) {
-      var F, K, __file_mapper__, __stub__, d, methods;
+      var F, K, __file_mapper__, __stubber__, d, methods;
       this.cli = cli;
       this.check = bind(this.check, this);
       this.setup = bind(this.setup, this);
@@ -146,7 +146,7 @@ Guide Interface treats a CLI state.
           };
         };
       })(this));
-      __stub__ = _.map(K, (function(_this) {
+      __stubber__ = _.map(K, (function(_this) {
         return function(methodName) {
           return function() {
             return _this[methodName](__reporter__);
@@ -156,7 +156,7 @@ Guide Interface treats a CLI state.
       if (!_.isEmpty(F)) {
         methods = __file_mapper__;
       } else {
-        methods = __stub__;
+        methods = __stubber__;
       }
       async.series(methods, function() {
         return console.log(K.join('').rainbow + ' completed');

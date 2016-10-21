@@ -113,12 +113,12 @@ class Guide
     K = _.filter _.map @config, (o, k) -> k  if o is true # Method
 
     __file_mapper__ = _.map K, (methodName) => () => @[methodName] F, __reporter__
-    __stub__ = _.map K, (methodName) => () => @[methodName] __reporter__
+    __stubber__ = _.map K, (methodName) => () => @[methodName] __reporter__
 
     if not _.isEmpty(F)
       methods = __file_mapper__
     else
-      methods = __stub__
+      methods = __stubber__
 
     async.series methods, () ->
       console.log K.join('').rainbow + ' completed'
