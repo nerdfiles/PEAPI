@@ -56,6 +56,16 @@ to the Guide.
 
     QueryManager.prototype.ls_files = function() {};
 
+
+    /*
+    @prototype
+    @name add_file
+    @description
+    Should likely create a list of files elsewhere since we are technically
+    stateless right now; or set up an eventing system to create
+    hashes for each new invoke.
+     */
+
     QueryManager.prototype.add_file = function(file) {
       return open_file(file);
     };
