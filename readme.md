@@ -43,11 +43,3 @@ Keep track of your proofofexistence.com records through a simple CLI.
     $ pe pay (payment_address) N satoshis
 
       [paid from <wallet_address>] : (status)
-
-## Use Case
-
-### Scripting
-
-### Supply Chain
-
-1. Snapshot items feed for intermarket resource sharing. Publish transactions
